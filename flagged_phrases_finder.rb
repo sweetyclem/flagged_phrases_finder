@@ -8,5 +8,7 @@ File.open("low_risk_phrases.txt").each do |line|
   low_risk_phrases.push(line.strip)
 end
 
-file_content = gets.chomp
+file = ARGV.first
+input = File.read(file)
+puts input
 score = 0
