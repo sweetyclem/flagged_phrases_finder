@@ -55,9 +55,9 @@ class FlaggedPhrasesFinder
   end
 end
 
-flagged_phrases_finder = FlaggedPhrasesFinder.new true
-flagged_phrases_finder.load_flagged_phrases("high_risk_phrases.txt", 1)
-flagged_phrases_finder.load_flagged_phrases("low_risk_phrases.txt", 2)
+flagged_phrases_finder = FlaggedPhrasesFinder.new(true)
+flagged_phrases_finder.load_flagged_phrases("high_risk_phrases.txt", FlaggedPhrasesFinder::Risk::HIGH)
+flagged_phrases_finder.load_flagged_phrases("low_risk_phrases.txt", FlaggedPhrasesFinder::Risk::LOW)
 
 files = Hash.new
 ARGV.each do |arg|
