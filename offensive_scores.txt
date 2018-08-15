@@ -4,3 +4,9 @@ input_files/input03.txt:2
 input_files/input01.txt:3
 input_files/input03.txt:2
 input_files/input06.txt:1
+input_files/input03.txt:2
+input_files/input06.txt:1
+input_files/input03.txt:2
+input_files/input06.txt:1
+input_files/input03.txt:2
+input_files/input01.txt:3
