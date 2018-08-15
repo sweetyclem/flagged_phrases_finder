@@ -4,9 +4,10 @@ class FlaggedPhrasesFinder
     LOW = 2
   end
   
-  def initialize
+  def initialize count_occurences
     @high_risk_phrases = []
     @low_risk_phrases = []
+    @count_occurences = count_occurences
   end
   
   def load_flagged_phrases file_name, risk
@@ -21,18 +22,30 @@ class FlaggedPhrasesFinder
     end
   end
 
-  def phrases_occurences risk_phrases, content
+  def nb_phrases_present risk_phrases, content
+    nb_phrases = 0
+    risk_phrases.each do |phrase|
+      nb_phrases += 1 if content.match(phrase)
+    end
+    return nb_phrases
+  end
+
+  def count_phrases_occurences risk_phrases, content
     occurences = 0
     risk_phrases.each do |phrase|
-      occurences += 1 if content.match(phrase)
-      puts phrase if content.match(phrase)
+      occurences += content.scan(phrase).count
     end
     return occurences
   end
 
   def score content
-    nb_high_risk = phrases_occurences(@high_risk_phrases, content)
-    nb_low_risk = phrases_occurences(@low_risk_phrases, content)
+    if @count_occurences      
+      nb_high_risk = count_phrases_occurences(@high_risk_phrases, content)
+      nb_low_risk = count_phrases_occurences(@low_risk_phrases, content)
+    else
+      nb_high_risk = nb_phrases_present(@high_risk_phrases, content)
+      nb_low_risk = nb_phrases_present(@low_risk_phrases, content)
+    end
     score = (nb_low_risk) + (nb_high_risk * 2)
   end
   
@@ -42,7 +55,7 @@ class FlaggedPhrasesFinder
   end
 end
 
-flagged_phrases_finder = FlaggedPhrasesFinder.new
+flagged_phrases_finder = FlaggedPhrasesFinder.new true
 flagged_phrases_finder.load_flagged_phrases("high_risk_phrases.txt", 1)
 flagged_phrases_finder.load_flagged_phrases("low_risk_phrases.txt", 2)
 
