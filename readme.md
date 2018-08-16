@@ -6,6 +6,7 @@ This ruby command line program takes a file name as an argument, and outputs an 
 ```
 ruby main.rb input_files/input01.txt input_files/input03.txt
 ```
+The score will be written in the offensive_scores.txt file at the root
 
 ## Configure testing dependency
 ```
